@@ -8,5 +8,5 @@ class User(AbstractUser):
     kakao_id = models.CharField(max_length=20, null=True)
     address = models.CharField(max_length=40, null=True)
 
-    def _str(self):
+    def __str__(self):
         return self.email

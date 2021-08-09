@@ -6,5 +6,3 @@ from .models import User
 admin.site.register(User, UserAdmin)
 UserAdmin.fieldsets += ("Custom fields",
                         {"fields": ("nickname", 'kakao_id', 'address',)}),
-# UserAdmin.fieldsets += ('Custom fields',
-#                         {'fields': ('nickname', 'kakao_id', 'address',)}),

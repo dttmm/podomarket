@@ -16,7 +16,7 @@
 
 
 {% if user.is_authenticated %}
-<p>안녕 {{user.email}}</p>
+<p>안녕 {{user.nickname}}, 이메일 {{user}}</p>
 {% else %}
 <p>로그인하셈</p>
 {% endif %}
