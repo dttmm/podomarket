@@ -4,4 +4,5 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+    def _str(self):
+        return self.email
