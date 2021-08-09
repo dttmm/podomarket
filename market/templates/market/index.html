@@ -1,0 +1,22 @@
+<navbar>
+
+  {% if user.is_authenticated %}
+  <a href="{% url 'account_logout' %}">로그아웃</a>
+  {% else %}
+  <a href="{% url 'account_login' %}">로그임</a>
+  <a href="{% url 'account_signup' %}">회원가입</a>
+
+  {% endif %}
+
+</navbar>
+
+
+
+홈페이지
+
+
+{% if user.is_authenticated %}
+<p>안녕 {{user.email}}</p>
+{% else %}
+<p>로그인하셈</p>
+{% endif %}
