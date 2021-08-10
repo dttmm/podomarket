@@ -1,0 +1,8 @@
+{% extends "market_base/base.html" %} {% load static %}
+{% block header %}
+<div class="site-simple-header">
+  <a href="{% url 'index' %}">
+    <img class="logo" src="{% static 'market/assets/logo.svg' %}" alt="포도마켓" />
+  </a>
+</div>
+{% endblock header %}
