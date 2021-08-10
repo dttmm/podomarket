@@ -10,6 +10,7 @@
 
 홈페이지 {% if user.is_authenticated %}
 <p>안녕 {{user.nickname}}, 이메일 {{user}}</p>
+<p><a href="{% url 'account_change_password' %}">비밀번호 변경</a></p>
 {% else %}
 <p>로그인하셈</p>
 {% endif %}
