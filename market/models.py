@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.deletion import CASCADE
 from .validators import *
+from django.core.validators import MinValueValidator
 # Create your models here.
 
 
@@ -32,14 +33,14 @@ class User(AbstractUser):
 
 class Post(models.Model):
     title = models.CharField(max_length=60)
-    item_price = models.IntegerField()
+    item_price = models.IntegerField(validators=[MinValueValidator(1)])
 
     CONDITION = [
-        (1, '새제품'),
-        (2, '최상'),
-        (3, '상'),
-        (4, '중'),
-        (5, '하'),
+        ('새제품', '새제품'),
+        ('최상', '최상'),
+        ('상', '상'),
+        ('중', '중'),
+        ('하', '하'),
     ]
 
     item_condition = models.IntegerField(choices=CONDITION)
