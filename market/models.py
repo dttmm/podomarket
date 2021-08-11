@@ -43,7 +43,8 @@ class Post(models.Model):
         ('하', '하'),
     ]
 
-    item_condition = models.CharField(max_length=10, choices=CONDITION)
+    item_condition = models.CharField(
+        max_length=10, choices=CONDITION, default=None)
     item_details = models.TextField(null=True)
     image1 = models.ImageField(upload_to='item_pics')
     image2 = models.ImageField(upload_to='item_pics', blank=True)
