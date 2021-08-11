@@ -3,7 +3,7 @@
 {% block body_class%}with-border{% endblock %}
 {% block header %}
 <header class="site-header">
-  <a class="logo" href="#">
+  <a class="logo" href="{% url 'index' %}">
     <img src="{% static 'market/assets/logo.svg' %}" alt="포도마켓" />
   </a>
   <nav>
