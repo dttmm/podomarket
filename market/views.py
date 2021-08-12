@@ -44,23 +44,33 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return EmailAddress.objects.filter(user=user, verified=True).exists()
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostUpdateForm
     pk_url_kwarg = 'post_id'
     template_name = 'market/post_form.html'
 
+    raise_exception = True
+
     def get_success_url(self):
         return reverse('post-detail', kwargs={"post_id": self.object.id})
 
+    def test_func(self, user):
+        return self.get_object().author == user
 
-class PostDeleteView(DeleteView):
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     pk_url_kwarg = 'post_id'
     tmeplate_name = 'market/post_confirm_delete.html'
 
+    raise_exception = True
+
     def get_success_url(self):
         return reverse('index')
+
+    def test_func(self, user):
+        return self.get_object().author == user
 
 
 class CustomPasswordChangeView(PasswordChangeView):
