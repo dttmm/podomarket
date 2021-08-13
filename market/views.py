@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from allauth.account.views import PasswordChangeView
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -84,6 +84,23 @@ class ProfileView(DetailView):
         user_id = self.kwargs.get('user_id')
         context['user_posts'] = Post.objects.filter(
             author__id=user_id).order_by("-dt_created")[:8]
+        return context
+
+
+class UserPostView(ListView):
+    model = Post
+    template_name = 'market/user_post_list.html'
+    context_object_name = 'user_posts'
+    paginate_by = 8
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Post.objects.filter(author__id=user_id).order_by("-dt_created")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile_user'] = get_object_or_404(
+            User, id=self.kwargs.get('user_id'))
         return context
 
 

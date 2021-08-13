@@ -11,4 +11,6 @@ urlpatterns = [
          views.PostDeleteView.as_view(), name='post-delete'),
     path('users/<int:user_id>/',
          views.ProfileView.as_view(), name='profile'),
+    path('users/<int:user_id>/reviews/',
+         views.UserPostView.as_view(), name='user-posts-list'),
 ]
