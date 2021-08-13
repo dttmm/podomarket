@@ -3,7 +3,7 @@ from allauth.account.views import PasswordChangeView
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, User
-from .forms import PostCreateForm, PostUpdateForm
+from .forms import PostCreateForm, PostUpdateForm, ProfileUpdateForm
 from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
 from .funtions import confirmation_required_redirect
@@ -105,6 +105,18 @@ class UserPostView(ListView):
         context['profile_user'] = get_object_or_404(
             User, id=self.kwargs.get('user_id'))
         return context
+
+
+class ProfileSetView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = ProfileUpdateForm
+    template_name = 'market/profile_set_form.html'
+
+    def get_object(self, query=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('index')
 
 
 class CustomPasswordChangeView(PasswordChangeView):
