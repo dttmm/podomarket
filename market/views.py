@@ -2,7 +2,7 @@ from django.shortcuts import render
 from allauth.account.views import PasswordChangeView
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, User
 from .forms import PostCreateForm, PostUpdateForm
 from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
@@ -71,6 +71,20 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self, user):
         return self.get_object().author == user
+
+
+class ProfileView(DetailView):
+    model = User
+    template_name = 'market/profile.html'
+    pk_url_kwarg = 'user_id'
+    context_object_name = 'profile_user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        context['user_posts'] = Post.objects.filter(
+            author__id=user_id).order_by("-dt_created")[:8]
+        return context
 
 
 class CustomPasswordChangeView(PasswordChangeView):
