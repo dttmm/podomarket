@@ -15,4 +15,6 @@ urlpatterns = [
          views.UserPostView.as_view(), name='user-posts-list'),
     path('users/set-profile/',
          views.ProfileSetView.as_view(), name='profile-set'),
+    path('users/edit-profile/',
+         views.ProfileUpdateView.as_view(), name='profile-update'),
 ]
