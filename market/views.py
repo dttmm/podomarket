@@ -18,6 +18,9 @@ class IndexView(ListView):
     paginate_by = 8
     ordering = ['-dt_created']
 
+    def get_queryset(self):
+        return Post.objects.filter(is_sold=False).order_by("-dt_created")
+
 
 class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
